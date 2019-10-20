@@ -6,7 +6,7 @@ if __name__ == '__main__':
     root = Tk()
 
     tekst = StringVar()
-    token = StringVar()
+    token = "fajnyklucz"
     wynik = StringVar()
 
 
@@ -104,26 +104,21 @@ if __name__ == '__main__':
         with open(file_read, 'r') as file:
             input_name = file_read.split("/")[-1]
             inside = file.read()
-            write = veigara(inside, token.get())
+            write = veigara(inside, "fajnyklucz")
             with open("wynik_" + input_name, 'w') as writing:
                 writing.write(write)
 
     label1 = ttk.Label(root, text="Wejscie")
     label1.grid(column=1, row=1)
-    label2 = ttk.Label(root, text="Token")
-    label2.grid(column=3, row=3)
     label3 = ttk.Label(root, text="Wynik")
     label3.grid(column=5, row=1)
 
-    szyfruj = ttk.Button(root, text='Szyfruj', command=lambda: veigara(tekst.get(), token.get()))
+    szyfruj = ttk.Button(root, text='Szyfruj', command=lambda: veigara(tekst.get(), "fajnyklucz"))
     szyfruj.grid(column=2, row=5)
-    deszyfruj = ttk.Button(root, text='Deszyfruj', command=lambda: de_veigara(wynik.get(), token.get()))
+    deszyfruj = ttk.Button(root, text='Deszyfruj', command=lambda: de_veigara(wynik.get(), "fajnyklucz"))
     deszyfruj.grid(column=5, row=5)
     tekst = ttk.Entry(root, textvariable=tekst)
     tekst.grid(column=1, row=2, columnspan=4, sticky=(N, W, E, S), padx=10, pady=10)
-
-    token = ttk.Entry(root, textvariable=token)
-    token.grid(column=2, row=4, columnspan=4, sticky=(N, W, E, S), padx=10, pady=10)
 
     wynik = ttk.Entry(root, textvariable=wynik)
     wynik.grid(column=5, row=2, columnspan=4, sticky=(N, W, E, S), padx=10, pady=10)
