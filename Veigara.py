@@ -93,7 +93,7 @@ if __name__ == '__main__':
                         part_result = part_result + chr(znak + 97)
 
             tekst.delete(0, END)
-            tekst.insert(0, part_result)
+            tekst.insert(0, "NOPE")
 
 
     def file_to_file():
