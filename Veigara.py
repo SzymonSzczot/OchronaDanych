@@ -1,16 +1,6 @@
 import random
 from tkinter import *
-from tkinter import ttk
-
-
-def homo():
-    alphabet = {"A": ["Z", "X", "Y", "11"], "B": ["C", "D", "F", "99"]}
-    tekst = input("Wpisz teskt do zaszyfrowania: ")
-    for x in tekst:
-        if x in alphabet.keys():
-            sign = random.sample(alphabet[x], 1)
-            print(sign[0])
-
+from tkinter import ttk, filedialog
 
 if __name__ == '__main__':
     root = Tk()
@@ -28,6 +18,7 @@ if __name__ == '__main__':
             txt = txt.replace(" ", "")
             txt = txt.lower()
             key = key.lower()
+            txt = re.sub('[^A-Za-z]+', '', txt)
 
             kk = key
 
@@ -60,12 +51,16 @@ if __name__ == '__main__':
         else:
             token.insert(0, "Wpisz token")
 
+        return result
+
 
     def de_veigara(wyn, key):
         part_result = ""
 
         key = key.lower()
         wyn = wyn.lower()
+
+        wyn = re.sub('[^A-Za-z]+', '', wyn)
 
         kk = key
 
@@ -100,6 +95,19 @@ if __name__ == '__main__':
             tekst.delete(0, END)
             tekst.insert(0, part_result)
 
+
+    def file_to_file():
+
+        file_read = root.filename = filedialog.askopenfilename(initialdir="/", title="Select file",
+                                                               filetypes=(("txt file", "*.txt"), ("all files", "*.*")))
+
+        with open(file_read, 'r') as file:
+            input_name = file_read.split("/")[-1]
+            inside = file.read()
+            write = veigara(inside, token.get())
+            with open("wynik_" + input_name, 'w') as writing:
+                writing.write(write)
+
     label1 = ttk.Label(root, text="Wejscie")
     label1.grid(column=1, row=1)
     label2 = ttk.Label(root, text="Token")
@@ -119,5 +127,8 @@ if __name__ == '__main__':
 
     wynik = ttk.Entry(root, textvariable=wynik)
     wynik.grid(column=5, row=2, columnspan=4, sticky=(N, W, E, S), padx=10, pady=10)
+
+    btn = ttk.Button(root, text="Z pliku", command=file_to_file)
+    btn.grid(column=5, row=6)
 
     root.mainloop()
